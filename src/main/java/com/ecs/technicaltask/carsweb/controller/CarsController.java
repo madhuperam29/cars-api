@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecs.technicaltask.carsweb.dto.CarsDao;
@@ -30,7 +32,7 @@ public class CarsController {
 	@Autowired
 	private CarsService carsService;
 
-	@RequestMapping(method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Add a car")
 	public ResponseEntity<CarsDao> post(@RequestBody CarsDao car) {
 		carsService.addCar(car);
@@ -38,24 +40,24 @@ public class CarsController {
 
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/{id}")
 	@ApiOperation(value = "View a single car", response = CarsDao.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public CarsDao getCar(@PathVariable("id") int id) throws Exception {
+	public CarsDao getCar(@PathVariable("id") int id) {
 
 		return carsService.getCar(id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping()
 	@ApiOperation(value = "View a list of available cars", response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	public List<CarsDao> getAllCars() throws Exception {
+	public List<CarsDao> getAllCars() {
 		return carsService.getAllCars();
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@DeleteMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Delete the car", response = String.class)
 	public ResponseEntity<String> deleteHospital(@PathVariable("id") int id) {
 		carsService.deleteCar(id);

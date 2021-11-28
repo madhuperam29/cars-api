@@ -2,13 +2,13 @@
 Cars Management api
 
 ![Java Badge](https://img.shields.io/badge/java-11-red?logo=java)
-[![Sonarqube Badge](https://img.shields.io/badge/Sonarqube-gray?logo=Sonarqube)](http://xxxxxxx:9000/dashboard?id=com.example%3Ademo)
-[![Swagger Badge](https://img.shields.io/badge/Swagger-API%20Spec-6DB33F?logo=Swagger)]( http://xxxxx:8081/swagger-ui.html)
+[![Sonarqube Badge](https://img.shields.io/badge/Sonarqube-gray?logo=Sonarqube)](http://34.125.83.167:9000/dashboard?id=com.ecs.technicaltask%3Acars-api)
+[![Swagger Badge](https://img.shields.io/badge/Swagger-API%20Spec-6DB33F?logo=Swagger)]( http://34.125.83.167:8081/swagger-ui.html)
 ![Spring boot MVC Badge](https://img.shields.io/badge/Spring%20Boot-MVC-6DB33F?logo=spring)
-![Jenkins Build Status](http://34.125.83.167:8080/buildStatus/icon?job=springboot-maven-docker "http://xxxxxx:8080/job/cars-api/")
+![Jenkins Build Status](http://34.125.83.167:8080/buildStatus/icon?job=springboot-maven-docker "http://34.125.83.167:8080/job/cars-api/")
 
 ## This springboot application is automated with CI and CD pipelines and deployed on to GCP VM instance.
-Sonarqube Report -  http://xxxxxx:9000/dashboard?id=com.example%3Ademo  <br />
+Sonarqube Report -  http://34.125.83.167:9000/dashboard?id=com.ecs.technicaltask%3Acars-api  <br />
 Jenkins Pipeline - http://xxxxxxx:8080/job/springboot-maven-docker/ <br />
 Push to Docker Hub - https://hub.docker.com/repository/docker/madhuperam29/xxxxx <br />
 
