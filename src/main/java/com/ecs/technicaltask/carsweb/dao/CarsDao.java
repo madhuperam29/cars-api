@@ -1,4 +1,4 @@
-package com.ecs.technicaltask.carsweb.dto;
+package com.ecs.technicaltask.carsweb.dao;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

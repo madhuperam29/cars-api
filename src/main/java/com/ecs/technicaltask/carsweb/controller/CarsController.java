@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecs.technicaltask.carsweb.dto.CarsDao;
+import com.ecs.technicaltask.carsweb.dao.CarsDao;
 import com.ecs.technicaltask.carsweb.service.CarsService;
 
 import io.swagger.annotations.Api;
@@ -59,7 +59,7 @@ public class CarsController {
 
 	@DeleteMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Delete the car", response = String.class)
-	public ResponseEntity<String> deleteHospital(@PathVariable("id") int id) {
+	public ResponseEntity<String> deleteCar(@PathVariable("id") int id) {
 		carsService.deleteCar(id);
 		return new ResponseEntity<>("Car deleted", HttpStatus.NO_CONTENT);
 	}
