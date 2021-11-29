@@ -15,7 +15,8 @@
 	<description>Cars management system</description>
 	<properties>
 		<java.version>11</java.version>
-		<sonar.exclusions>**/CarsDao.java,**/ApiErrorResponse.java,**/ApiException.java, **/CarsWebApplicationTests.java</sonar.exclusions>
+		<sonar.exclusions>**/CarsDao.java,**/ApiErrorResponse.java,**/ApiException.java,**/ApiNotFoundException.java,
+		src/test/java/*</sonar.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>

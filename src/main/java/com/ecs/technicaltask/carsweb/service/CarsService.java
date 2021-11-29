@@ -9,13 +9,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 
-import com.ecs.technicaltask.carsweb.dto.CarsDao;
+import com.ecs.technicaltask.carsweb.dao.CarsDao;
 import com.ecs.technicaltask.carsweb.exception.ApiException;
+import com.ecs.technicaltask.carsweb.exception.ApiNotFoundException;
 
 @Service
 public class CarsService {
 
-	private static Map<Integer, CarsDao> carsMap = new HashMap<>();
+	public static Map<Integer, CarsDao> carsMap = new HashMap<>();
 	private static AtomicInteger idGen = new AtomicInteger();
 
 	static {
@@ -38,25 +39,31 @@ public class CarsService {
 
 	}
 
-	public List<CarsDao> getAllCars() {
-		List<CarsDao> hospitalList = new ArrayList<>();
-		carsMap.forEach((k, v) -> hospitalList.add(v));
-
-		return hospitalList;
+	public List<CarsDao> getAllCars() throws ApiException {
+		List<CarsDao> carsList = new ArrayList<>();
+		if (carsMap.isEmpty()) {
+			throw new ApiException("In Memory Repository is not initiated. Try Again");
+		} else {
+			carsMap.forEach((k, v) -> carsList.add(v));
+			return carsList;
+		}
 	}
 
 	public CarsDao getCar(int id) {
-		Optional<CarsDao> user = Optional.ofNullable(carsMap.get(id));
-		if (!user.isPresent()) {
-			throw new ApiException("Car Not Found");
+		Optional<CarsDao> car = Optional.ofNullable(carsMap.get(id));
+		if (!car.isPresent()) {
+			throw new ApiNotFoundException("Car Not Found");
 		}
 
-		return user.get();
+		return car.get();
 	}
 
 	public void deleteCar(int id) {
-		// This can be improved by adding error handling for not found
-		carsMap.remove(id);
+		Optional<CarsDao> car = Optional.ofNullable(carsMap.get(id));
+		if (!car.isPresent()) {
+			throw new ApiNotFoundException("Car Not Found to delete. Pass the right car ID");
+		} else
+			carsMap.remove(id);
 
 	}
 

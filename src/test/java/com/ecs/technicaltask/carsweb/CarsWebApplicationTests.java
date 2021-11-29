@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.ecs.technicaltask.carsweb.dto.CarsDao;
+import com.ecs.technicaltask.carsweb.dao.CarsDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -64,6 +64,12 @@ public class CarsWebApplicationTests {
 	}
 
 	@Test
+	public void retrieveNotFoundTest() throws Exception {
+		mockMvc.perform(get("/api/v1/cars/8")).andExpect(status().isNotFound());
+
+	}
+
+	@Test
 	public void retrieveAll_ok() throws Exception {
 		testAddCar_ok();
 		mockMvc.perform(get("/api/v1/cars")).andExpect(status().isOk());
@@ -72,10 +78,16 @@ public class CarsWebApplicationTests {
 
 	@Test
 	public void testDeleteCar_ok() throws Exception {
-
 		mockMvc.perform(
-				delete("/api/v1/cars/4").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				delete("/api/v1/cars/3").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
+
+	}
+
+	@Test
+	public void testDeleteCarNotFound() throws Exception {
+
+		mockMvc.perform(delete("/api/v1/cars/6")).andExpect(status().isNotFound());
 
 	}
 
