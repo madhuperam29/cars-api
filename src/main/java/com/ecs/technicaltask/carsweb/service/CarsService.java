@@ -16,7 +16,7 @@ import com.ecs.technicaltask.carsweb.exception.ApiNotFoundException;
 @Service
 public class CarsService {
 
-	public static Map<Integer, CarsDao> carsMap = new HashMap<>();
+	public static final Map<Integer, CarsDao> carsMap = new HashMap<>();
 	private static AtomicInteger idGen = new AtomicInteger();
 
 	static {
