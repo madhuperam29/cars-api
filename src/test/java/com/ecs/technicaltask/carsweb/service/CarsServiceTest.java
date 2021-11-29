@@ -29,24 +29,24 @@ public class CarsServiceTest {
 	}
 
 	@Test
-	public void testGetAllCars() {
+	void testGetAllCars() {
 		List<CarsDao> carsList = carsSevice.getAllCars();
 		assertTrue(carsList.size() > 0);
 	}
 
 	@Test
-	public void testAPiException() {
+	void testAPiException() {
 		try {
 			CarsService.carsMap.clear();
 			carsSevice.getAllCars();
 		} catch (ApiException e) {
-			assertEquals(e.getMessage(), "In Memory Repository is not initiated. Try Again");
+			assertEquals("In Memory Repository is not initiated. Try Again", e.getMessage());
 		}
 
 	}
 
 	@Test
-	public void testGetCar() {
+	void testGetCar() {
 
 		CarsDao car = carsSevice.getCar(1);
 		assertEquals("Ford", car.getMake());
@@ -56,7 +56,7 @@ public class CarsServiceTest {
 	}
 
 	@Test
-	public void testAddCar() {
+	void testAddCar() {
 		CarsDao car = new CarsDao(5, "Volkswagen", "Golf", "blue", "2019");
 		CarsDao car1 = new CarsDao(6, "Volkswagen", "Lavida", "red", "2018");
 		CarsDao car2 = carsSevice.addCar(car);
@@ -73,9 +73,8 @@ public class CarsServiceTest {
 	}
 
 	@Test
-	public void testDeleteCar() {
+	void testDeleteCar() {
 		carsSevice.deleteCar(2);
-		System.out.println("size of hashmap" + CarsService.carsMap.size());
 		assertTrue(CarsService.carsMap.size() == 3);
 
 	}
