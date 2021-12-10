@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata;
+    name: cars-app-deployment
+    labels:
+        name: cars-app-deployment
+        acontainerPortpp:  cars-app
+    spec:
+        replicas: 1
+        selector:
+            matchLabels:
+                name: cars-app-pod
+                tier: front-end
+                app: cars-app
+        template:
+            metadata:
+                name: cars-app-pod
+                labels:
+                    name: cars-app-pod
+                    tier: front-end
+                    app: cars-app
+            spec:
+                containers:
+                    - name: cars-app
+                      image: gcr.io/oval-precept-333108/madhu/cars-app-v1
+                      ports:
+                        - containerPort : 8080
+                        name: cars
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cars
+  name: cars
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "cars-service"
+    port: 8080
+    targetPort: 8081
+    protocol: TCP
+  selector:
+    name: cars-app-pod
+    tier: front-end
+    app: cars-app
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name:  cars
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cars-app-deployment
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 20
