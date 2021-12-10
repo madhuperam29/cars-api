@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata;
+metadata:
     name: cars-app-deployment
     labels:
         name: cars-app-deployment
