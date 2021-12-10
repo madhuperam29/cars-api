@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata;
+    name: cars-app-deployment
+    labels:
+        name: cars-app-deployment
+        acontainerPortpp:  cars-app
+    spec:
+        replicas: 1
+        selector:
+            matchLabels:
+                name: cars-app-pod
+                tier: front-end
+                app: cars-app
+        template:
+            metadata:
+                name: cars-app-pod
+                labels:
+                    name: cars-app-pod
+                    tier: front-end
+                    app: cars-app
+            spec:
+                containers:
+                    - name: cars-app
+                      image: gcr.io/oval-precept-333108/madhu/cars-app-v1
+                      ports:
+                        - containerPort : 8080
+                        name: cars

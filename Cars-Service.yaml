@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cars
+  name: cars
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "cars-service"
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    name: cars-app-pod
+    tier: front-end
+    app: cars-app
