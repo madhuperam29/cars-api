@@ -19,6 +19,8 @@ spec:
       containers:
       - name: "cars-app-v1"
         image: "gcr.io/oval-precept-333108/madhu/cars-app-v1"
+        ports:
+					- containerPort: 8080
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
