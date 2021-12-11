@@ -1,30 +1,45 @@
-apiVersion: apps/v1
-kind: Deployment
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-    name: cars-app-deployment
-    labels:
-        name: cars-app-deployment
-        acontainerPortpp:  cars-app
+  name: "cars-app"
+  namespace: "default"
+  labels:
+    app: "cars-app"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "cars-app"
+  template:
+    metadata:
+      labels:
+        app: "cars-app"
     spec:
-        replicas: 1
-        selector:
-            matchLabels:
-                name: cars-app-pod
-                tier: front-end
-                app: cars-app
-        template:
-            metadata:
-                name: cars-app-pod
-                labels:
-                    name: cars-app-pod
-                    tier: front-end
-                    app: cars-app
-            spec:
-                containers:
-                    - name: cars-app
-                      image: gcr.io/oval-precept-333108/madhu/cars-app-v1
-                      ports:
-                        - containerPort : 8081
+      containers:
+      - name: "cars-app-v1"
+        image: "gcr.io/oval-precept-333108/madhu/cars-app-v1"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "cars-app"
+  namespace: "default"
+  labels:
+    app: "cars-app"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "cars-app"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 60
+
 ---
 apiVersion: v1
 kind: Service
@@ -42,17 +57,3 @@ spec:
     name: cars-app-pod
     tier: front-end
     app: cars-app
-
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name:  cars
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: cars-app-deployment
-  minReplicas: 1
-  maxReplicas: 2
-  targetCPUUtilizationPercentage: 20
